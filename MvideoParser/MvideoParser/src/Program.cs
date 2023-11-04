@@ -4,6 +4,7 @@ using MvideoParser.src.parameters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Net;
 using System.Web.Helpers;
 
 internal class Program
@@ -21,7 +22,7 @@ internal class Program
     private static void CreateJsonFiles()
     {
         var json = JsonConvert.SerializeObject(productInfo.ToArray());
-        File.WriteAllText(@"F:\mvideo\MvideoParser\MvideoParser\Json\JsonAnswer.json", json);
+        Console.WriteLine(json);
     }
 
 
@@ -46,9 +47,7 @@ internal class Program
             var urlPrice = $"https://www.mvideo.ru/bff/products/prices?productIds={item}";
             Console.WriteLine(urlInfo);
             var info = MakeRequest(urlInfo, item, "body");
-            Thread.Sleep(random.Next(1000, 5000));
             var price = MakeRequest(urlPrice, item, "body.materialPrices[0].price");
-            Thread.Sleep(random.Next(1000, 5000));
             if (info != null && price != null)
             {
                 var product = new Product
@@ -76,6 +75,8 @@ internal class Program
     {
         var handler = new HttpClientHandler
         {
+            Proxy = new WebProxy("45.12.30.189", 80),
+            UseProxy = true,
             AllowAutoRedirect = true,
             MaxAutomaticRedirections = 2,
         };
