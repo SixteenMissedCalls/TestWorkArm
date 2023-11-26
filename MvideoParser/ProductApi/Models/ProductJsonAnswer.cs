@@ -1,23 +1,16 @@
-﻿using System;
+﻿using ProductApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MVapi.Models
+namespace Pr.Models
 {
-    public class ProductJsonAnswer
+    public class ProductJsonAnswer: BaseModel
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-        public class App
-        {
-            public string appId { get; set; }
-            public string appSecret { get; set; }
-        }
-        public class Root
-        {
-            public List<Variant> variants { get; set; }
-            public App app { get; set; }
-        }
+        
+        public List<Variant> variants { get; set; }
 
         public class Variant
         {
